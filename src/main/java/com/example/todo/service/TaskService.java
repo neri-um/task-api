@@ -128,7 +128,7 @@ public class TaskService {
     LocalDate today = LocalDate.now(clock);
     if (dueDate.isBefore(today)) {
       throw new TaskValidationException(
-          "La fecha limite no puede ser anterior a hoy (" + today + "): " + dueDate);
+          "La fecha limite no puede ser pasada: " + dueDate + " (hoy " + today + ")");
     }
     if (dueDate.isAfter(today.plusYears(1))) {
       throw new TaskValidationException(
