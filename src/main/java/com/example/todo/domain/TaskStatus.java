@@ -1,5 +1,11 @@
 package com.example.todo.domain;
 
+/**
+ * Estados posibles de una tarea.
+ *
+ * <p>{@code DONE} y {@code CANCELLED} son estados finales: desde ellos ya no hay transiciones de
+ * salida.
+ */
 public enum TaskStatus {
   TODO,
   IN_PROGRESS,
