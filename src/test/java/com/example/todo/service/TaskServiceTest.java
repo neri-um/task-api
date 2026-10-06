@@ -84,6 +84,25 @@ class TaskServiceTest {
   }
 
   @Test
+  void noSePuedeCrearUnaTareaConFechaLimiteMasDeUnAnoEnElFuturo() {
+    CreateTaskRequest request = createRequest(TODAY.plusYears(1).plusDays(1), Set.of("trabajo"));
+
+    TaskValidationException ex =
+        assertThrows(TaskValidationException.class, () -> service.create(request));
+
+    assertTrue(ex.getMessage().contains("un ano"));
+    assertEquals(0, repository.count());
+  }
+
+  @Test
+  void seAdmiteCrearTareaConFechaLimiteJustaDeUnAno() {
+    Task task = service.create(createRequest(TODAY.plusYears(1), Set.of("trabajo")));
+
+    assertEquals(TODAY.plusYears(1), task.getDueDate());
+    assertEquals(1, repository.count());
+  }
+
+  @Test
   void crearTareaValidaAsignaIdEstadoPorDefectoYMarcasDeTiempo() {
     Task task = service.create(createRequest(TODAY.plusDays(3), Set.of("casa")));
 

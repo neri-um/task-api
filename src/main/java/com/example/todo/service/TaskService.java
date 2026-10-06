@@ -130,6 +130,10 @@ public class TaskService {
       throw new TaskValidationException(
           "La fecha limite no puede ser anterior a hoy (" + today + "): " + dueDate);
     }
+    if (dueDate.isAfter(today.plusYears(1))) {
+      throw new TaskValidationException(
+          "La fecha limite no puede superar un ano a partir de hoy (" + today + "): " + dueDate);
+    }
   }
 
   private void validateTags(Set<String> tags) {
